@@ -500,18 +500,20 @@ def git_update(repo, is_no_errors=False, is_current_dir=False, git_owner=""):
   print("[git] update: " + repo)
   owner = git_owner if git_owner else "ONLYOFFICE"
 
-  my_organization = "tamer-hassan"
-  my_tag_suffix = "-tamer"
   my_modified_repos = ["server"]
   if (repo in my_modified_repos):
-    owner = my_organization
+    owner = "tamer-hassan"
     branch_to_checkout = config.option("branch")
+    oo_repo = "oo_" + repo
+    url = "https://github.com/" + owner + "/" + oo_repo + ".git"
+    if config.option("git-protocol") == "ssh":
+      url = "git@github.com:" + owner + "/" + oo_repo + ".git"
   else:
-    branch_to_checkout = re.sub(my_tag_suffix, '', config.option("branch"))
+    branch_to_checkout = re.sub("-tamer", '', config.option("branch"))
+    url = "https://github.com/" + owner + "/" + repo + ".git"
+    if config.option("git-protocol") == "ssh":
+      url = "git@github.com:" + owner + "/" + repo + ".git"
 
-  url = "https://github.com/" + owner + "/" + repo + ".git"
-  if config.option("git-protocol") == "ssh":
-    url = "git@github.com:" + owner + "/" + repo + ".git"
   folder = get_script_dir() + "/../../" + repo
   if is_current_dir:
     folder = repo
