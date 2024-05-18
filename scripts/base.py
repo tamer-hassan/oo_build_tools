@@ -499,9 +499,19 @@ def set_cwd(dir):
 def git_update(repo, is_no_errors=False, is_current_dir=False, git_owner=""):
   print("[git] update: " + repo)
   owner = git_owner if git_owner else "ONLYOFFICE"
+
+  my_organization = "tamer-hassan"
+  my_tag_suffix = "-tamer"
+  my_modified_repos = ["server"]
+  if (repo in my_modified_repos):
+    owner = my_organization
+    branch_to_checkout = config.option("branch")
+  else:
+    branch_to_checkout = re.sub(my_tag_suffix, '', config.option("branch"))
+
   url = "https://github.com/" + owner + "/" + repo + ".git"
   if config.option("git-protocol") == "ssh":
-    url = "git@github.com:ONLYOFFICE/" + repo + ".git"
+    url = "git@github.com:" + owner + "/" + repo + ".git"
   folder = get_script_dir() + "/../../" + repo
   if is_current_dir:
     folder = repo
@@ -515,7 +525,7 @@ def git_update(repo, is_no_errors=False, is_current_dir=False, git_owner=""):
   os.chdir(folder)
   cmd("git", ["fetch"], False if ("1" != config.option("update-light")) else True)
   if is_not_exit or ("1" != config.option("update-light")):
-    retCheckout = cmd("git", ["checkout", "-f", config.option("branch")], True)
+    retCheckout = cmd("git", ["checkout", "-f", branch_to_checkout], True)
     if (retCheckout != 0):
       print("branch does not exist...")
       print("switching to master...")
