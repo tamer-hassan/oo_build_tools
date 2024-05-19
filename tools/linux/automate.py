@@ -52,17 +52,17 @@ def install_qt():
                "-skip", "qtwebengine"]
 
   base.cmd_in_dir("./qt-everywhere-opensource-src-5.9.9", "./configure", qt_params)
-  # base.cmd_in_dir("./qt-everywhere-opensource-src-5.9.9", "make", ["-j", "4"])
-  # base.cmd_in_dir("./qt-everywhere-opensource-src-5.9.9", "make", ["install"])
+  base.cmd_in_dir("./qt-everywhere-opensource-src-5.9.9", "make", ["-j", "4"])
+  base.cmd_in_dir("./qt-everywhere-opensource-src-5.9.9", "make", ["install"])
   return
 
 if not base.is_file("./node_js_setup_14.x"):
   print("install dependencies...")
   deps.install_deps()
 
-if not base.is_dir("./qt_build"):  
-  print("install qt...")
-  install_qt()
+# if not base.is_dir("./qt_build"):  
+#   print("install qt...")
+#   install_qt()
 
 branch = get_branch_name("../..")
 
@@ -99,7 +99,8 @@ print("---------------------------------------------")
 build_tools_params = ["--branch", branch, 
                       "--module", modules, 
                       "--update", "1",
-                      "--no-apps"] + params
+                      "--no-apps", "1",
+                      "--use-system-qt", "1"] + params
 
 base.cmd_in_dir("../..", "./configure.py", build_tools_params)
 base.cmd_in_dir("../..", "./make.py")
