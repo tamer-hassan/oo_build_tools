@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:20.04
 
 ENV TZ=Etc/UTC
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
@@ -12,4 +12,4 @@ ADD . /build_tools
 WORKDIR /build_tools
 
 CMD cd tools/linux && \
-    python3 ./automate.py
+    python3 ./automate.py server
