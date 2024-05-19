@@ -90,7 +90,7 @@ print("---------------------------------------------")
 
 modules = " ".join(array_modules)
 if "" == modules:
-  modules = "desktop builder server"
+  modules = "server"
 
 print("---------------------------------------------")
 print("build modules: " + modules)
@@ -99,7 +99,7 @@ print("---------------------------------------------")
 build_tools_params = ["--branch", branch, 
                       "--module", modules, 
                       "--update", "1",
-                      "--qt-dir", os.getcwd() + "/qt_build/Qt-5.9.9"] + params
+                      "--no-apps"] + params
 
 base.cmd_in_dir("../..", "./configure.py", build_tools_params)
 base.cmd_in_dir("../..", "./make.py")
