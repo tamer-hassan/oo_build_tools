@@ -52,8 +52,8 @@ def install_qt():
                "-skip", "qtwebengine"]
 
   base.cmd_in_dir("./qt-everywhere-opensource-src-5.9.9", "./configure", qt_params)
-  base.cmd_in_dir("./qt-everywhere-opensource-src-5.9.9", "make", ["-j", "4"])
-  base.cmd_in_dir("./qt-everywhere-opensource-src-5.9.9", "make", ["install"])
+  # base.cmd_in_dir("./qt-everywhere-opensource-src-5.9.9", "make", ["-j", "4"])
+  # base.cmd_in_dir("./qt-everywhere-opensource-src-5.9.9", "make", ["install"])
   return
 
 if not base.is_file("./node_js_setup_14.x"):
