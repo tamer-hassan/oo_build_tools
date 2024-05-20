@@ -60,9 +60,9 @@ if not base.is_file("./node_js_setup_14.x"):
   print("install dependencies...")
   deps.install_deps()
 
-# if not base.is_dir("./qt_build"):  
-#   print("install qt...")
-#   install_qt()
+if not base.is_dir("./qt_build"):  
+  print("install qt...")
+  install_qt()
 
 branch = get_branch_name("../..")
 
@@ -99,8 +99,7 @@ print("---------------------------------------------")
 build_tools_params = ["--branch", branch, 
                       "--module", modules, 
                       "--update", "1",
-                      "--no-apps", "1",
-                      "--use-system-qt", "1"] + params
+                      "--qt-dir", os.getcwd() + "/qt_build/Qt-5.9.9"] + params
 
 base.cmd_in_dir("../..", "./configure.py", build_tools_params)
 base.cmd_in_dir("../..", "./make.py")
